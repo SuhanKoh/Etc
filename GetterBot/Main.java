@@ -39,12 +39,9 @@ public class Main {
 
                 Thread.sleep(WAIT_TIME);
 
-            } catch (ProtocolException e) {
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }
