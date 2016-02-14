@@ -19,33 +19,26 @@ public class Main {
 
             try {
                 URL obj = new URL(URL);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
 
-                // optional default is GET
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("User-Agent", USER_AGENT);
 
-                con.setRequestMethod("GET");
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                //add request header
-                con.setRequestProperty("User-Agent", USER_AGENT);
-
-                int responseCode = con.getResponseCode();
-                System.out.println("\nSending 'GET' request to URL : " + URL);
-                System.out.println("Response Code : " + responseCode);
-
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(con.getInputStream()));
                 String inputLine;
-                StringBuffer response = new StringBuffer();
+
+                System.out.println("");
 
                 while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+                    System.out.println(inputLine);
                 }
                 in.close();
 
-                //print result
-                System.out.println(response.toString());
+                System.out.println("Response Code : " + connection.getResponseCode());
 
                 Thread.sleep(WAIT_TIME);
+
             } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
